@@ -18,17 +18,30 @@ class TextKey extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Theme.of(context);
     return Expanded(
       flex: flex,
       child: Padding(
         padding: const EdgeInsets.all(1.0),
         child: Material(
-          color: Colors.blue.shade300,
+          color: appTheme.colorScheme.secondary,
           child: InkWell(
-            onTap: () => isBackSpace ? onBackspace?.call() : onTextInput?.call(text ?? ""),
+            onTap: () => isBackSpace
+                ? onBackspace?.call()
+                : onTextInput?.call(text ?? ""),
             child: SizedBox(
               child: Center(
-                child: isBackSpace ? const Icon(Icons.backspace) : Text(text ?? ""),
+                child: isBackSpace
+                    ? Icon(
+                        Icons.backspace,
+                        color: appTheme.colorScheme.onSecondary,
+                      )
+                    : Text(
+                        text ?? "",
+                        style: appTheme.textTheme.bodyLarge?.copyWith(
+                          color: appTheme.colorScheme.onSecondary,
+                        ),
+                      ),
               ),
             ),
           ),
