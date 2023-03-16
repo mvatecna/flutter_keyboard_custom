@@ -36,13 +36,13 @@ class _CustomKeyboardState extends State<CustomKeyboard> {
           children: [
             ...list
                 .map(
-                  (e) => TextKey(
+                  (e) => KeyKeyboard(
                     callback: () => _textInputHandler(e),
                     child: textKey(e),
                   ),
                 )
                 .toList(),
-            TextKey(
+            KeyKeyboard(
               callback: _toggleIsABCTap,
               child: Text(
                 "ABC",
@@ -51,11 +51,11 @@ class _CustomKeyboardState extends State<CustomKeyboard> {
                     ),
               ),
             ),
-            TextKey(
+            KeyKeyboard(
               callback: () => _textInputHandler("0"),
               child: textKey("0"),
             ),
-            TextKey(
+            KeyKeyboard(
               callback: _backspaceHandler,
               child: Icon(
                 Icons.backspace,

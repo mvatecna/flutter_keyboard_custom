@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TextKey extends StatelessWidget {
-  const TextKey({
+class KeyKeyboard extends StatelessWidget {
+  const KeyKeyboard({
     required this.child,
     this.callback,
     super.key,
