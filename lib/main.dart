@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_custom/custom_keayboard.dart';
+import 'package:flutter_keyboard_custom/custom_keyboard.dart';
 
 void main() => runApp(const MyApp());
 
@@ -39,8 +39,9 @@ class _KeyboardDemoState extends State<KeyboardDemo> {
             child: TextField(
               controller: _controller,
               decoration: InputDecoration(
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(6),
+                ),
               ),
               style: const TextStyle(fontSize: 24),
               autofocus: true,
@@ -81,9 +82,12 @@ class _KeyboardDemoState extends State<KeyboardDemo> {
   void bottomSheet() {
     showModalBottomSheet(
         context: context,
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width * .7,
+        ),
         builder: (_) {
           return CustomKeyboard(
-            onTextInput: (myText) => _insertText(myText),
+            onTextInput: (text) => _insertText(text),
             onBackspace: () => _backspace(),
           );
         });
@@ -135,11 +139,7 @@ class _KeyboardDemoState extends State<KeyboardDemo> {
     final offset = _isUtf16Surrogate(previousCodeUnit) ? 2 : 1;
     final newStart = textSelection.start - offset;
     final newEnd = textSelection.start;
-    final newText = text.replaceRange(
-      newStart,
-      newEnd,
-      '',
-    );
+    final newText = text.replaceRange(newStart, newEnd, '');
     _controller.text = newText;
     _controller.selection = textSelection.copyWith(
       baseOffset: newStart,
@@ -147,9 +147,7 @@ class _KeyboardDemoState extends State<KeyboardDemo> {
     );
   }
 
-  bool _isUtf16Surrogate(int value) {
-    return value & 0xF800 == 0xD800;
-  }
+  bool _isUtf16Surrogate(int value) => value & 0xF800 == 0xD800;
 
   @override
   void dispose() {
